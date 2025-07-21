@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Influencer Content Tracker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Influencer Content Tracker</h1>
+            <div class="last-update" id="lastUpdate">Last updated: Never</div>
+            <div class="admin-link">
+                <a href="{{ url_for('admin') }}" class="nav-link">Admin Panel →</a>
+            </div>
+        </header>
+
+        <div class="platform-tabs">
+            <button class="tab-button active" onclick="switchPlatform('youtube')">YouTube</button>
+            <button class="tab-button" onclick="switchPlatform('instagram')">Instagram</button>
+            <button class="tab-button" onclick="switchPlatform('twitter')">Twitter</button>
+        </div>
+
+        <div id="contentContainer" class="content-grid">
+            <div class="loading">
+                <div class="loading-spinner"></div>
+                <p>Loading content...</p>
+            </div>
+        </div>
+    </div>
+
+    <button class="refresh-button" onclick="refreshContent()" title="Refresh content">
+        ↻
+    </button>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
