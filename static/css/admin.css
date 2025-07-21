@@ -1,0 +1,265 @@
+/*
+================================================================================
+|                                                                              |
+|                  ADMIN.CSS - GLASSMORPHISM & DARK UI REDESIGN                  |
+|                                                                              |
+================================================================================
+*/
+
+
+/* --- ADMIN NAVIGATION --- */
+.admin-nav {
+    margin-top: 20px;
+    text-align: center;
+    position: relative; /* Fix for clickable area */
+    z-index: 2; /* Fix for clickable area */
+}
+
+/* --- ADMIN GRID & CARDS --- */
+.admin-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.admin-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius);
+    padding: 30px;
+    backdrop-filter: blur(var(--blur-intensity));
+    -webkit-backdrop-filter: blur(var(--blur-intensity));
+    box-shadow: 0 8px 32px 0 var(--glass-shadow);
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.admin-card:hover {
+    border-color: rgba(255, 255, 255, 0.25);
+    transform: translateY(-5px);
+}
+
+.admin-card.full-width {
+    grid-column: 1 / -1;
+}
+
+.admin-card h2 {
+    color: var(--text-color);
+    margin-bottom: 25px;
+    font-size: 1.5rem;
+    font-weight: 600;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+/* --- FORM CONTROLS (SEXY INPUTS) --- */
+.channel-controls, .video-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.add-channel-form {
+    display: flex;
+    gap: 15px;
+}
+
+.channel-input, .video-input {
+    flex: 1;
+    padding: 14px 20px;
+    background: rgba(0,0,0,0.2);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    color: var(--text-color);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.channel-input::placeholder, .video-input::placeholder {
+    color: var(--text-muted);
+}
+
+.channel-input:focus, .video-input:focus {
+    outline: none;
+    border-color: var(--primary-glow);
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.3), 0 0 15px var(--primary-glow);
+}
+
+/* --- BUTTONS (SEXY BUTTONS) --- */
+.btn {
+    padding: 14px 30px;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(var(--blur-intensity));
+    -webkit-backdrop-filter: blur(var(--blur-intensity));
+    white-space: nowrap;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+.btn-primary {
+    background: linear-gradient(90deg, #8338ec, #ff006e);
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(131, 56, 236, 0.4);
+}
+.btn-primary:hover {
+    box-shadow: 0 6px 20px rgba(131, 56, 236, 0.6), 0 0 20px var(--secondary-glow);
+}
+
+.btn-secondary {
+    background: var(--glass-bg);
+    border-color: var(--glass-border);
+    color: var(--text-color);
+}
+.btn-secondary:hover {
+    background: rgba(255,255,255,0.1);
+    border-color: rgba(255,255,255,0.2);
+}
+
+.btn-danger {
+    background: rgba(239, 68, 68, 0.15);
+    color: #ef4444;
+    border-color: rgba(239, 68, 68, 0.3);
+    padding: 8px 20px;
+    font-size: 0.9rem;
+}
+.btn-danger:hover {
+    background: rgba(239, 68, 68, 0.25);
+    border-color: rgba(239, 68, 68, 0.5);
+    box-shadow: 0 0 15px rgba(239, 68, 68, 0.4);
+}
+
+
+/* --- LISTS (CHANNELS & TRANSCRIPTS) --- */
+.channels-list, .transcripts-list {
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 10px; /* Space for scrollbar */
+}
+
+.channel-item, .transcript-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background: rgba(0,0,0,0.2);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
+    gap: 15px; /* Add gap between info and actions */
+}
+
+.channel-item:hover, .transcript-item:hover {
+    background: rgba(255,255,255,0.05);
+    border-color: rgba(255,255,255,0.15);
+    transform: scale(1.02);
+}
+
+.channel-name {
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+/* === FIX STARTS HERE === */
+.transcript-info {
+    flex: 1; /* Allow this to grow and shrink */
+    min-width: 0; /* Crucial for allowing flex items to shrink below their content size */
+}
+
+.transcript-filename {
+    color: var(--text-color);
+    font-weight: 500;
+    white-space: nowrap; /* Prevent text from wrapping */
+    overflow: hidden; /* Hide overflowing text */
+    text-overflow: ellipsis; /* Add the "..." */
+}
+/* === FIX ENDS HERE === */
+
+.transcript-meta {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    margin-top: 4px;
+}
+
+.transcript-actions {
+    flex-shrink: 0; /* Prevent buttons from shrinking */
+    display: flex;
+    gap: 10px;
+}
+
+.btn-small {
+    padding: 6px 15px;
+    font-size: 0.85rem;
+}
+
+
+/* --- PROCESSING RESULT & STATS --- */
+.processing-result {
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid var(--glass-border);
+    display: none; /* Hidden by default */
+}
+
+.processing-result.success, .processing-result.error, .processing-result.loading {
+    display: block;
+}
+
+.processing-result.success { background: rgba(16, 185, 129, 0.15); border-color: rgba(16, 185, 129, 0.3); color: #10b981; }
+.processing-result.error { background: rgba(239, 68, 68, 0.15); border-color: rgba(239, 68, 68, 0.3); color: #ef4444; }
+.processing-result.loading { background: rgba(131, 56, 236, 0.15); border-color: rgba(131, 56, 236, 0.3); color: #8338ec; }
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.stat-card {
+    background: rgba(0,0,0,0.2);
+    border: 1px solid var(--glass-border);
+    padding: 25px;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.stat-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #8338ec;
+    margin-bottom: 5px;
+    text-shadow: 0 0 10px var(--primary-glow);
+}
+
+.stat-label {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+}
+
+/* --- RESPONSIVE DESIGN --- */
+@media (max-width: 768px) {
+    .admin-grid {
+        grid-template-columns: 1fr;
+    }
+    .add-channel-form {
+        flex-direction: column;
+    }
+    .stats-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+}
