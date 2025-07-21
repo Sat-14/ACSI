@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Multi-Platform Content Tracker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+    <style>
+        .platform-section {
+            background: #1e1e1e;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid;
+        }
+        
+        .youtube-section {
+            border-left-color: #ff0000;
+        }
+        
+        .instagram-section {
+            border-left-color: #e4405f;
+        }
+        
+        .twitter-section {
+            border-left-color: #1da1f2;
+        }
+        
+        .platform-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .platform-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #fff;
+        }
+        
+        .platform-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+        }
+        
+        .youtube-icon { background: #ff0000; }
+        .instagram-icon { background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); }
+        .twitter-icon { background: #1da1f2; }
+        
+        .handle-form {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .handle-input {
+            flex: 1;
+            min-width: 200px;
+            padding: 8px 12px;
+            background: #2a2a2a;
+            border: 1px solid #444;
+            border-radius: 4px;
+            color: #fff;
+        }
+        
+        .handle-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            background: #2a2a2a;
+            border-radius: 4px;
+            margin-bottom: 8px;
+        }
+        
+        .handle-name {
+            color: #fff;
+            font-weight: 500;
+        }
+        
+        .handle-actions {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .btn-small {
+            padding: 4px 8px;
+            font-size: 0.85em;
+        }
+        
+        .bulk-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .recent-content-tabs {
+            display: flex;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #333;
+        }
+        
+        .tab-btn {
+            background: none;
+            border: none;
+            color: #ccc;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .tab-btn:hover {
+            color: #fff;
+        }
+        
+        .tab-btn.active {
+            color: #007bff;
+            border-bottom-color: #007bff;
+        }
+        
+        .content-tab {
+            display: none;
+        }
+        
+        .content-tab.active {
+            display: block;
+        }
+        
+        .content-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background: #2a2a2a;
+            border-radius: 4px;
+            margin-bottom: 8px;
+        }
+        
+        .content-info {
+            flex: 1;
+        }
+        
+        .content-title {
+            color: #fff;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+        
+        .content-meta {
+            color: #ccc;
+            font-size: 0.85em;
+        }
+        
+        .content-actions {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .no-content {
+            text-align: center;
+            color: #666;
+            padding: 20px;
+            font-style: italic;
+        }
+        
+        .export-section {
+            background: #1a1a1a;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 20px;
+        }
+        
+        .admin-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+        }
+        
+        .full-width {
+            grid-column: 1 / -1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Multi-Platform Admin Panel</h1>
+            <div class="admin-nav">
+                <a href="/" class="nav-link">← Back to Dashboard</a>
+            </div>
+        </header>
+
+        <div class="admin-grid">
+            <!-- YouTube Management Section -->
+            <div class="platform-section youtube-section">
+                <div class="platform-header">
+                    <div class="platform-title">
+                        <div class="platform-icon youtube-icon"></div>
+                        YouTube Channels
+                    </div>
+                </div>
+                <div class="handle-form">
+                    <input type="text" id="newChannelInput" placeholder="Enter YouTube channel handle (e.g., @channelname)" class="handle-input">
+                    <button onclick="addChannel()" class="btn btn-primary">Add Channel</button>
+                </div>
+                <div id="channelsList" class="handles-list">
+                    <div class="loading">Loading YouTube channels...</div>
+                </div>
+            </div>
+
+            <!-- Instagram Management Section -->
+            <div class="platform-section instagram-section">
+                <div class="platform-header">
+                    <div class="platform-title">
+                        <div class="platform-icon instagram-icon"></div>
+                        Instagram Handles
+                    </div>
+                </div>
+                <div class="handle-form">
+                    <input type="text" id="newInstagramInput" placeholder="Enter Instagram handle (e.g., @username)" class="handle-input">
+                    <button onclick="addInstagramHandle()" class="btn btn-primary">Add Handle</button>
+                </div>
+                <div id="instagramHandlesList" class="handles-list">
+                    <div class="loading">Loading Instagram handles...</div>
+                </div>
+                <div class="bulk-actions">
+                    <button onclick="scrapeAllInstagram()" class="btn btn-secondary">Scrape All Instagram</button>
+                </div>
+            </div>
+
+            <!-- Twitter Management Section -->
+            <div class="platform-section twitter-section">
+                <div class="platform-header">
+                    <div class="platform-title">
+                        <div class="platform-icon twitter-icon"></div>
+                        Twitter Handles
+                    </div>
+                </div>
+                <div class="handle-form">
+                    <input type="text" id="newTwitterInput" placeholder="Enter Twitter handle (e.g., @username)" class="handle-input">
+                    <button onclick="addTwitterHandle()" class="btn btn-primary">Add Handle</button>
+                </div>
+                <div id="twitterHandlesList" class="handles-list">
+                    <div class="loading">Loading Twitter handles...</div>
+                </div>
+                <div class="bulk-actions">
+                    <button onclick="scrapeAllTwitter()" class="btn btn-secondary">Scrape All Twitter</button>
+                </div>
+            </div>
+
+            <!-- Process Single Video Section -->
+            <div class="admin-card">
+                <h2>Process Single YouTube Video</h2>
+                <div class="video-controls">
+                    <input type="text" id="videoUrlInput" placeholder="Enter YouTube video URL" class="video-input">
+                    <button onclick="processVideo()" class="btn btn-secondary">Process Video</button>
+                    <div id="videoProcessingResult" class="processing-result"></div>
+                </div>
+            </div>
+
+            <!-- Bulk Operations Section -->
+            <div class="admin-card">
+                <h2>Bulk Operations</h2>
+                <div class="bulk-actions">
+                    <button onclick="bulkScrapeAll()" class="btn btn-warning">Scrape All Platforms</button>
+                </div>
+                
+                <div class="export-section">
+                    <h3>Import/Export Handles</h3>
+                    <div class="bulk-actions">
+                        <button onclick="exportHandles()" class="btn btn-info">Export All Handles</button>
+                        <button onclick="importHandles()" class="btn btn-info">Import Handles</button>
+                    </div>
+                    <p style="color: #666; font-size: 0.9em; margin-top: 10px;">
+                        Export saves all your handles to a JSON file. Import allows you to restore from a backup.
+                    </p>
+                </div>
+            </div>
+
+            <!-- API Statistics Section -->
+            <div class="admin-card full-width">
+                <h2>API Statistics</h2>
+                <div id="apiStats" class="stats-grid">
+                    <div class="loading">Loading statistics...</div>
+                </div>
+            </div>
+
+            <!-- Recent Content Section -->
+            <div class="admin-card full-width">
+                <h2>Recent Content</h2>
+                <div id="recentContent" class="content-list">
+                    <div class="loading">Loading recent content...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+</body>
+</html>
