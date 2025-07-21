@@ -1,0 +1,23 @@
+# YouTube Transcriber Requirements
+# No ffmpeg required!
+
+# Core dependencies
+yt-dlp>=2024.1.0
+google-generativeai>=0.3.0
+
+# Flask API
+flask>=2.3.0
+flask-cors>=4.0.0
+
+# Scheduling
+schedule>=1.2.0
+
+# Standard library extensions
+# (These are included in Python, but listed for clarity)
+# - logging
+# - json
+# - os
+# - time
+# - datetime
+# - threading
+# - re
