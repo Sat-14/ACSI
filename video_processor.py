@@ -8,6 +8,7 @@ import yt_dlp
 import sys
 import threading
 from config import TEMP_AUDIO_DIR
+import time
 
 # Safe logging setup for Windows compatibility
 class SafeStreamHandler(logging.StreamHandler):
@@ -105,6 +106,12 @@ class VideoProcessor:
             
             # Process each video
             for i, video in enumerate(recent_videos, 1):
+                # --- CORRECTED FIX: Apply delay *before* processing the 2nd, 3rd, etc., video ---
+                if i > 1:  # No delay for the first video, but delay for all others
+                    self.logger.info("Applying 60-second delay to respect API rate limits...")
+                    time.sleep(60)
+                # --------------------------------------------------------------------------------
+
                 self.logger.info(f"Processing video {i}/{len(recent_videos)}: '{video['title']}'")
                 self.logger.debug(f"Video details - ID: {video['video_id']}, Upload date: {video['upload_date']}")
                 
