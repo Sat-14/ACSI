@@ -331,3 +331,62 @@ h1 {
         font-size: 1.5rem;
     }
 }
+
+
+/* --- NO CONTENT MESSAGE & BUTTON FIX --- */
+
+/* Styles for the "No content" container */
+.no-content-message {
+    grid-column: 1 / -1; /* Make it span the full grid width */
+    text-align: center;
+    padding: 60px 40px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius);
+    backdrop-filter: blur(var(--blur-intensity));
+    -webkit-backdrop-filter: blur(var(--blur-intensity));
+    color: var(--text-muted);
+    animation: fadeIn 1s ease-out;
+}
+
+.no-content-message h3 {
+    color: var(--text-color);
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.no-content-message p {
+    margin-bottom: 25px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.7;
+}
+
+/* Button styles (copied from admin.css for consistency) */
+.btn {
+    padding: 14px 30px;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+.btn-primary {
+    background: linear-gradient(90deg, #8338ec, #ff006e);
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(131, 56, 236, 0.4);
+}
+.btn-primary:hover {
+    box-shadow: 0 6px 20px rgba(131, 56, 236, 0.6), 0 0 20px var(--secondary-glow);
+}

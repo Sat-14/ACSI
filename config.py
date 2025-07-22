@@ -19,7 +19,7 @@ TEMP_AUDIO_DIR = os.path.join(BASE_DIR, 'temp_audio')
 TRANSCRIPTS_DIR = os.path.join(BASE_DIR, 'transcripts')
 
 # Gemini API Settings
-GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY', 'AIzaSyAkUM4-BpeC6t7CUs0nf1YhVyRyxSa3a2U')
+GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY', 'AIzaSyDYn4icMp__s4axEprf5PxdAcqOcFKQkW0')
 if GEMINI_API_KEY == 'your-api-key-here':
     print("WARNING: GEMINI_API_KEY not set in environment variables!")
 
